@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-//biar bisa pake widget kek Text, Container , AppBar dll
 
 void main() {
-  //main itu entry point
   runApp(const TokSaveApp());
-  //fungsi runApp untuk nyalain app  
-  //TokSaveApp wigdet rootnya 
 }
 
+class TokSaveApp extends StatelessWidget {
+  const TokSaveApp({super.key});
 
-  class TokSaveApp extends StatelessWidget {
-    const TokSaveApp({super.key});
-
-    @override 
-    //fungsi build() : method wajib yg ngashh tau widget ini mau nampilin apa 
-    Widget build(BuildContext context) {
-    return MaterialApp (
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       title: 'TokSave',
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
@@ -23,61 +17,44 @@ void main() {
   }
 }
 
-  
 class HomeScreen extends StatelessWidget {
-  
   const HomeScreen({super.key});
-  //constructor bernama HomeScreen 
-  //menerima parameter bernama key
-  //dan meneruskan key/parameter ke parent class / super
+
   @override
-  //method dibawah ini menimpa method dari parent class
   Widget build(BuildContext context) {
-    //Widget : tipe retuurn : method ini bakal mengembalikan sebuah widgert
-    //nama fungsinya build dan berparameter context
-    //
-    // TODO: implement build
     return Scaffold(
-      //scaffold : kerangka halaman (app baar + body)
       appBar: AppBar(
         title: const Text('TokSave'),
       ),
-
-
       body: Padding(
-        padding: const EdgeInsets.all(16.0),//kasih jarak 16px
-        child: Column( //susun widget dari atas ke bawah
-          crossAxisAlignment: CrossAxisAlignment.stretch,//anak2nya melebar penuh
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
-           TextField(
-            decoration: InputDecoration(
-              hintText: 'Tempel link Tiktok di sini',
-              border: OutlineInputBorder(),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Tempel link TikTok di sini',
+                border: OutlineInputBorder(),
+              ),
             ),
-           ),
-
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
-                    child: OutlinedButton(
-                    onPressed: () {}, 
-                    child: const Text('Paste')
-                    ),
-                    ),
-     
-
-            const SizedBox(width: 12),
-            Expanded(child: OutlinedButton(
-                    onPressed: () {}, 
-                    child: const Text('Download'),
-                    ),
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: const Text('Paste'),
                   ),
-                ],
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {},
+                    child: const Text('Download'),
+                  ),
+                ),
+              ],
             ),
-
-
             const SizedBox(height: 24),
             Container(
               padding: const EdgeInsets.all(12),
@@ -85,41 +62,50 @@ class HomeScreen extends StatelessWidget {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8),
               ),
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 180,
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Text('Thumbnail'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 180,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Text('Thumbnail'),
+                    ),
                   ),
-                ),
-
-                const SizedBox(height: 8),
-                const Text('@username'),
-                const SizedBox(height: 4),
-                const Text('Caption video Tiktok di sini....'),
-                const SizedBox(height: 4),
-                const Text('Durasi: 00:45'),
-              ],
+                  const SizedBox(height: 8),
+                  const Text('@username'),
+                  const SizedBox(height: 4),
+                  const Text('Caption video TikTok di sini...'),
+                  const SizedBox(height: 4),
+                  const Text('Durasi: 00:45'),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton(
+                          onPressed: () {},
+                          child: const Text('Download SD'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FilledButton(
+                          onPressed: () {},
+                          child: const Text('Download HD'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            )
-
-
-
-
-
-              
-             ],
-            ),
-          )
-        );
+            const SizedBox(height: 16),
+            const LinearProgressIndicator(value: 0.4),
+            const SizedBox(height: 4),
+            const Text('12.5 MB / 28.4 MB'),
+          ],
+        ),
+      ),
+    );
   }
 }
-
-
-//main() → runApp → TokSaveApp → MaterialApp → HomeScreen → Scaffold
-//├─ AppBar → Text 'TokSave'
-//└─ body → Center → Text 'Home TokSave'
