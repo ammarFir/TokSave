@@ -24,6 +24,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
   class _HomeScreenState extends State<HomeScreen> {
+    bool showPreview = false;
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -53,14 +55,19 @@ class HomeScreen extends StatefulWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: FilledButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        showPreview = true;
+                      });
+                    },
                     child: const Text('Download'),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 24),
-            Container(
+              if (showPreview) ...[
+ Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
@@ -107,6 +114,7 @@ class HomeScreen extends StatefulWidget {
             const LinearProgressIndicator(value: 0.4),
             const SizedBox(height: 4),
             const Text('12.5 MB / 28.4 MB'),
+            ],
           ],
         ),
       ),
