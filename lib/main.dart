@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const TokSaveApp());
@@ -24,6 +25,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
   class _HomeScreenState extends State<HomeScreen> {
+    final TextEditingController urlController = TextEditingController();
+    //bikin var urlController bertipe TextEditingController, yg isinya objek baru dari TextEditingController
     bool showPreview = false;
 
     @override
@@ -53,6 +56,7 @@ class HomeScreen extends StatefulWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
+              controller: urlController,
               decoration: InputDecoration(
                 hintText: 'Tempel link TikTok di sini',
                 border: OutlineInputBorder(),
@@ -63,7 +67,14 @@ class HomeScreen extends StatefulWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final data = await Clipboard.getData('text/plain');
+                      if(data?.text != null) {
+                        setState(() {
+                          urlController.text = data!.text!;
+                        });
+                      }
+                    },
                     child: const Text('Paste'),
                   ),
                 ),
@@ -82,7 +93,7 @@ class HomeScreen extends StatefulWidget {
             ),
             const SizedBox(height: 24),
               if (showPreview) ...[
- Container(
+              Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
