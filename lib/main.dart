@@ -31,7 +31,22 @@ class HomeScreen extends StatefulWidget {
       return Scaffold(
         appBar: AppBar(
           title: const Text('TokSave'),
+          actions: [
+            IconButton(
+              icon: const  Icon (Icons.refresh),
+              onPressed: () {
+                setState(() {
+                  showPreview = false;
+                });
+              },
+              ),
+              IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {}, 
+            )
+          ],
         ),
+        
         body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
