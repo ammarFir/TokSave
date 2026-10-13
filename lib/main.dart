@@ -17,16 +17,20 @@ class TokSaveApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('TokSave'),
-      ),
-      body: Padding(
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+  class _HomeScreenState extends State<HomeScreen> {
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('TokSave'),
+        ),
+        body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,6 +110,8 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+      );
+    }
   }
-}
+
+  
