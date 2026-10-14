@@ -29,6 +29,32 @@ class HomeScreen extends StatefulWidget {
     //bikin var urlController bertipe TextEditingController, yg isinya objek baru dari TextEditingController
     bool showPreview = false;
 
+    //fungsi bernama validateUrl ,menerima param bernama input bertipe String
+    //String? : hasil fungsi / return boleh berupa String atau null
+    String? validateUrl(String input) {
+
+      //menyimpan hasil input
+      //trim() : hapus spasi dibagian awal dan akhir
+      final trimmed = input.trim();
+      if (trimmed.isEmpty) {
+        return input.isEmpty
+        // ? bentuk singkat if else
+        //jika kosong Maka Pesan pertama ,
+            ? 'Masukkan link Tiktok terlebih dahulu'
+            : 'Link tidak valid';
+      }
+
+      //membuat variable uri yg berisi hasil parsing teks dari trimmed
+      //menjadi objek Uri , agar bagian url bisa  diperika
+      //Uri.tryParse() akan mengembalikan null jika parsing gagal
+      final uri = Uri.tryParse(trimmed);
+
+      if (uri == null || !uri.host.contains('tiktok.com')) {
+        return 'Link tidak valid';
+      }
+      return null;
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -40,6 +66,7 @@ class HomeScreen extends StatefulWidget {
               onPressed: () {
                 setState(() {
                   showPreview = false;
+                  urlController.clear();
                 });
               },
               ),
@@ -79,9 +106,20 @@ class HomeScreen extends StatefulWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
+                //membuat widget expanded agar anaknya menggunakan ruang yg tersedia
                 Expanded(
+                  //menentukan widget yg akan ditampilkan di dalam expanded
                   child: FilledButton(
                     onPressed: () {
+                      //membuat var error untuk menyimpan
+                      //yg isinya fungsi validateUrl yg mana mengambil text dari pengguna 
+                      final error = validateUrl(urlController.text);
+                      if (error != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(error)),
+                        );
+                        return;
+                      }
                       setState(() {
                         showPreview = true;
                       });
