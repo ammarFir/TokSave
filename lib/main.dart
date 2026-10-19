@@ -73,7 +73,31 @@ class HomeScreen extends StatefulWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('TokSave'),
+          title: const Text.rich(
+            TextSpan(
+            children: [
+              TextSpan(
+              text: 'Tok',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 20,
+              ),
+          ) ,
+          TextSpan (
+            text: 'Save',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xff25f4ee),
+              fontSize: 20,
+            ),
+          ),
+          ],
+          ),
+        ),
+
+    
+
           actions: [
             IconButton(
               icon: const  Icon (Icons.refresh),
