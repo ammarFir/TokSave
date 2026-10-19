@@ -13,6 +13,20 @@ class TokSaveApp extends StatelessWidget {
     return MaterialApp(
       title: 'TokSave',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xff25f4ee),
+          brightness: Brightness.dark
+          ),
+          scaffoldBackgroundColor: const Color(0xf121212),
+          appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xff1a1a1a),
+          elevation: 0,
+          centerTitle: false,
+       ),
+      ),
       home: const HomeScreen(),
     );
   }
@@ -87,48 +101,42 @@ class HomeScreen extends StatefulWidget {
               decoration: InputDecoration(
                 hintText: 'Tempel link TikTok di sini',
                 border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () async {
-                      final data = await Clipboard.getData('text/plain');
-                      if(data?.text != null) {
-                        setState(() {
-                          urlController.text = data!.text!;
-                        });
-                      }
-                    },
-                    child: const Text('Paste'),
+                suffixIcon: IconButton(
+                         icon: const Icon(Icons.content_paste),
+                         tooltip: 'Paste',
+                         onPressed: () async {
+                          final data = await Clipboard.getData('text/plain');
+                          if (data?.text != null) {
+                            setState(() {
+                              urlController.text = data!.text!;
+                            });
+                          }
+                        }
+                      )
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                //membuat widget expanded agar anaknya menggunakan ruang yg tersedia
-                Expanded(
-                  //menentukan widget yg akan ditampilkan di dalam expanded
-                  child: FilledButton(
-                    onPressed: () {
-                      //membuat var error untuk menyimpan
-                      //yg isinya fungsi validateUrl yg mana mengambil text dari pengguna 
-                      final error = validateUrl(urlController.text);
-                      if (error != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(error)),
-                        );
-                        return;
-                      }
-                      setState(() {
-                        showPreview = true;
-                      });
-                    },
-                    child: const Text('Download'),
-                  ),
-                ),
-              ],
-            ),
+
+                  const SizedBox(height: 12),
+SizedBox(
+  width: double.infinity,
+  child: FilledButton(
+    onPressed: () {
+      final error = validateUrl(urlController.text);
+      if (error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)),
+        );
+        return;
+      }
+      setState(() {
+        showPreview = true;
+      });
+    },
+    child: const Text('Download'),
+  ),
+),
+      
+              
             const SizedBox(height: 24),
               if (showPreview) ...[
               Container(
