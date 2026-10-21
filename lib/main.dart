@@ -143,7 +143,19 @@ class HomeScreen extends StatefulWidget {
                   const SizedBox(height: 12),
 SizedBox(
   width: double.infinity,
+  height: 52,
   child: FilledButton(
+    style: FilledButton.styleFrom(
+      backgroundColor: const Color(0xff25f4ee),
+      foregroundColor: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+      ),
     onPressed: () {
       final error = validateUrl(urlController.text);
       if (error != null) {
@@ -166,17 +178,26 @@ SizedBox(
               Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xff1e1e1e),
+                border: Border.all(color: const Color(0xff25f4ee).withValues(alpha: 0.3)),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 180,
-                    color: Colors.grey[300],
-                    child: const Center(
-                      child: Text('Thumbnail'),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      height: 180,
+                      width: double.infinity,
+                      color:  const Color(0xff2a2a2a),
+                      child: const Center(
+                        child: Icon(
+                          Icons.icecream_outlined,
+                          color: Colors.white24,
+                          size: 48,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
