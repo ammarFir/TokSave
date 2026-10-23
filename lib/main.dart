@@ -200,30 +200,84 @@ SizedBox(
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Text('@username'),
-                  const SizedBox(height: 4),
-                  const Text('Caption video TikTok di sini...'),
-                  const SizedBox(height: 4),
-                  const Text('Durasi: 00:45'),
+                  const SizedBox(height: 12),
+                  const Text(
+                    '@username',
+                    style: TextStyle(
+                      color: Color(0xff25f4ee),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                    ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Caption video TikTok di sini...',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: const [
+                      Icon(Icons.access_time, size: 14, color: Colors.white54),
+                      SizedBox(width: 4,),
+                      Text(
+                        '00:45',
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
+                        child: SizedBox(
+                        height: 44,
                         child: FilledButton(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: const Color(0xff25f4ee),
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                           onPressed: () {},
-                          child: const Text('Download SD'),
+                          child: const Text('SD'),
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 10,),
                       Expanded(
-                        child: FilledButton(
-                          onPressed: () {},
-                          child: const Text('Download HD'),
-                        ),
-                      ),
+                        child: SizedBox(
+                          height: 44,
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: const Color(0xff25f4ee),
+                              side: const BorderSide(color: Color(0xff25f4ee),
+                              width: 1.5,          
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: const Text('HD'),
+                            ),
+                          ) 
+                        )
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
