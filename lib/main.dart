@@ -114,7 +114,9 @@ class HomeScreen extends StatefulWidget {
             )
           ],
         ),
-        body: Padding(
+        body: SingleChildScrollView(
+          child: Padding(
+          //body bisa di scroll
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -288,6 +290,7 @@ SizedBox(
           ],
         ),
       ),
+        ),
       bottomNavigationBar: Container(
         height: 50,
         color: const Color(0xff1a1a1a),
