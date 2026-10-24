@@ -114,7 +114,6 @@ class HomeScreen extends StatefulWidget {
             )
           ],
         ),
-        
         body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -287,6 +286,16 @@ SizedBox(
             const Text('12.5 MB / 28.4 MB'),
             ],
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 50,
+        color: const Color(0xff1a1a1a),
+        child: const Center(
+          child: Text(
+            'Banner AdMob',
+            style: TextStyle(color: Colors.white24, fontSize: 12),
+          ),
         ),
       ),
       );
