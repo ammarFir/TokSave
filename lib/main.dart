@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'services/api_service.dart';
 
 void main() {
   runApp(const TokSaveApp());
@@ -43,6 +44,10 @@ class HomeScreen extends StatefulWidget {
     //bikin var urlController bertipe TextEditingController, yg isinya objek baru dari TextEditingController
     bool showPreview = false;
 
+    //nyimpan data video dari Api 
+    //Map yg bisa berisi apa saja dan boleh null
+    Map<String, dynamic>? videoData;
+
     //fungsi bernama validateUrl ,menerima param bernama input bertipe String
     //String? : hasil fungsi / return boleh berupa String atau null
     String? validateUrl(String input) {
@@ -68,6 +73,10 @@ class HomeScreen extends StatefulWidget {
       }
       return null;
     }
+
+  @override 
+  text : white;
+
 
     @override
     Widget build(BuildContext context) {
@@ -157,7 +166,7 @@ SizedBox(
         fontSize: 16,
       ),
       ),
-    onPressed: () {
+    onPressed: () async {
       final error = validateUrl(urlController.text);
       if (error != null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -165,10 +174,29 @@ SizedBox(
         );
         return;
       }
+
+
+      //2. panggil api metadata
+      final result = await ApiService.fetchMetadata(urlController.text);
+
+      //3 cek hhhasilnya
+      if (result == null || result['success'] != true) {
+        if(!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Gagal Mengambil Data')),
+
+        );
+      return;
+      }
+
+      
+
       setState(() {
+        videoData = result['data'] as Map<String, dynamic>;
         showPreview = true;
       });
     },
+
     child: const Text('Download'),
   ),
 ),
@@ -202,18 +230,18 @@ SizedBox(
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    '@username',
-                    style: TextStyle(
+                   Text(
+                    videoData?['username'] ?? '-',
+                    style: const TextStyle(
                       color: Color(0xff25f4ee),
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                     ),
                   const SizedBox(height: 6),
-                  const Text(
-                    'Caption video TikTok di sini...',
-                    style: TextStyle(
+                  Text(
+                    videoData?['caption'] ?? '-',
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 13,
                     ),
@@ -222,12 +250,12 @@ SizedBox(
                     ),
                   const SizedBox(height: 6),
                   Row(
-                    children: const [
-                      Icon(Icons.access_time, size: 14, color: Colors.white54),
-                      SizedBox(width: 4,),
+                    children: [
+                      const Icon(Icons.access_time, size: 14, color: Colors.white54),
+                      const SizedBox(width: 4),
                       Text(
-                        '00:45',
-                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                        _formatDuration(videoData?['duration']),
+                        style: const TextStyle(color: Colors.white54, fontSize: 12),
                       ),
                     ],
                   ),
