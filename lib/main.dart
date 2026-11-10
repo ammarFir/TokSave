@@ -220,19 +220,21 @@ SizedBox(
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Container(
-                      height: 180,
-                      width: double.infinity,
-                      color:  const Color(0xff2a2a2a),
-                      child: const Center(
-                        child: Icon(
-                          Icons.icecream_outlined,
-                          color: Colors.white24,
-                          size: 48,
-                        ),
-                      ),
-                    ),
+                    child: Image.network(
+                      videoData?['thumbnail'] ?? '',
+                      fit:  BoxFit.cover,
+                      errorBuilder: (context, error, StackTrace) {
+                        return const Center(
+                          child: Text(
+                            'Thumbnail tidak tersedia',
+                            style: TextStyle(color: Colors.white38, fontSize: 12),
+                          ),
+                        );
+                      }
+                    )
                   ),
+
+                  //const username
                   const SizedBox(height: 12),
                    Text(
                     videoData?['username'] ?? '-',
@@ -242,6 +244,8 @@ SizedBox(
                       fontSize: 14,
                     ),
                     ),
+                    
+                    //const username
                   const SizedBox(height: 6),
                   Text(
                     videoData?['caption'] ?? '-',
@@ -263,6 +267,8 @@ SizedBox(
                       ),
                     ],
                   ),
+
+                  //tombol sd
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -286,6 +292,8 @@ SizedBox(
                           ),
                         ),
                       ),
+
+                      //tombol hd
                       const SizedBox(width: 10,),
                       Expanded(
                         child: SizedBox(
