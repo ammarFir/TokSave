@@ -74,8 +74,12 @@ class HomeScreen extends StatefulWidget {
       return null;
     }
 
-  @override 
-  text : white;
+    String _formatDuration(dynamic duration) {
+      if (duration == null || duration is! int) return '-';
+      final minutes = duration ~/ 60;
+      final seconds = duration % 60;
+      return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    }
 
 
     @override
