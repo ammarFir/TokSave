@@ -223,7 +223,7 @@ SizedBox(
                     child: Image.network(
                       videoData?['thumbnail'] ?? '',
                       fit:  BoxFit.cover,
-                      errorBuilder: (context, error, StackTrace) {
+                      errorBuilder: (context, error, stackTrace) {
                         return const Center(
                           child: Text(
                             'Thumbnail tidak tersedia',
