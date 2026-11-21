@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toksave/services/download_service.dart';
 import 'services/api_service.dart';
 
 void main() {
@@ -287,7 +288,19 @@ SizedBox(
                               fontSize: 13,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (videoData == null) return;
+                            final ok = await DownloadService.downloadVideo(
+                              urlController.text,
+                              'SD',
+                            );
+
+                            if (!ok && mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Download Gagal')),
+                              );
+                            }
+                          },
                           child: const Text('SD'),
                           ),
                         ),
@@ -322,10 +335,6 @@ SizedBox(
                 ],
               ),
             ),
-            const SizedBox(height: 16),
-            const LinearProgressIndicator(value: 0.4),
-            const SizedBox(height: 4),
-            const Text('12.5 MB / 28.4 MB'),
             ],
           ],
         ),

@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 
@@ -16,7 +16,11 @@ class DownloadService {
       );
       final response = await http.get(url);
 
-      if(response.statusCode != 200) return false;
+      if(response.statusCode != 200) {
+      print('Status Code: ${response.statusCode}');
+      print('Body: ${response.body}');
+      return false;
+      }
 
       final savedUri = await FilePicker.saveFile(
         dialogTitle: 'Simpan video',
@@ -27,6 +31,7 @@ class DownloadService {
 
         return savedUri != null;
     } catch (e) {
+      print('Dwonload error: $e');
       return false;
     }
   }
