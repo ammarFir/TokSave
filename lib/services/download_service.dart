@@ -7,12 +7,18 @@ class DownloadService {
 
   //download video dari backend
   //return kalau berhasil
-  static Future<bool> downloadVideo(String tiktokUrl, String quality) async {
+  static Future<bool> downloadVideo(
+    String tiktokUrl,
+    String quality,{
+    int? duration,
+    }
+    ) async {
     try {
       //minta user pilih folder
  //download dari backend
       final url = Uri.parse(
-        '$baseUrl/api/download.php?url=${Uri.encodeComponent(tiktokUrl)}&quality=$quality',
+        '$baseUrl/api/download.php?url=${Uri.encodeComponent(tiktokUrl)}&quality=$quality$duration=${duration ?? 0}',
+        
       );
       final response = await http.get(url);
 

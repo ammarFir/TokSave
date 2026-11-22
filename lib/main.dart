@@ -293,6 +293,7 @@ SizedBox(
                             final ok = await DownloadService.downloadVideo(
                               urlController.text,
                               'SD',
+                              duration: videoData!['duration'] as int?,
                             );
 
                             if (!ok && mounted) {
